@@ -12,13 +12,6 @@ composer create-project symfony/skeleton nomDeMonProjet
 symfony server:start
 ```
 
-#### Mises en place d'un CRUD
-
-- Create
-- Read
-- Update
-- Delete
-
 #### Installation du MakerBundle
 
 ```
@@ -61,4 +54,19 @@ php bin/console make:test
 ### Lancer les test 
 ```
 php bin/phpunit
+```
+
+### Query langage
+https://www.doctrine-project.org/projects/doctrine-orm/en/2.9/reference/dql-doctrine-query-language.html
+
+### Migrer la database & la mettre à jour
+```
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
+```
+
+### Les services
+Les services vont agir sur les données.
+```
+/src/Service
 ```
