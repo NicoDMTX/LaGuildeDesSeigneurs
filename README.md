@@ -44,3 +44,21 @@ Ajout public/.htaccess
 
 Ajout VarDumper Component
 -> https://run.as/97f9cv
+
+### Module test unitaire php
+```
+composer require --dev symfony/phpunit-bridge phpunit/phpunit;
+composer require --dev symfony/browser-kit symfony/css-selector;
+```
+
+#### Crée les test 
+```
+php bin/console make:test
+- Choisir WebTestCase
+- Ficher : CharacterControllerTest
+```
+
+### Lancer les test 
+```
+php bin/phpunit
+```
