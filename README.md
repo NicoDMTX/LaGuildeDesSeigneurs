@@ -70,3 +70,8 @@ Les services vont agir sur les données.
 ```
 /src/Service
 ```
+
+### Faire les annotations 
+```
+composer require annotations
+```

@@ -18,36 +18,71 @@ class CharacterController extends AbstractController
         $this->characterService = $characterService;
     }
 
-    public function index(): Response
+    /**
+     * @Route("/character", name="character_redirect_index", methods={"GET","HEAD"})
+     */
+    public function redirectIndex()
     {
-        /**
-         * @Route("/character, name="character", methods={"GET","HEAD"})
-         */
-        return $this->json([
-            'message' => 'Welcome to your new controller',
-            'path' => 'src/Controller/CharacterController.php',
-        ]);
+        return $this->redirectToRoute('character_index');
     }
 
     /**
-     * @Route("/character/display", methods={"GET", "HEAD"})
+     * @Route("/character/index", name="character_index", methods={"GET","HEAD"})
      */
-    public function display() 
+    public function index()
     {
-        $character = new Character();
+        $this->denyAccessUnlessGranted('characterIndex', null);
+        $characters = $this->characterService->getAll();
+        return new JsonResponse($characters);
+    }
+
+    /**
+    * @Route("/character/display/{identifier}", name="character_display", requirements={"identifier": "^([a-z0-9]{40})$"}, methods={"GET","HEAD"})
+    */
+    public function display(Character $character) 
+    {
         return new JsonResponse($character->toArray());
     }
-
     /**
-     * @Route ("/character/create",
-     *      name="character_create",
-     *      methods={"POST", "HEAD"}
-     * )
+     * @Route("/character/create", name="character_create", methods={"POST","HEAD"})
      */
-    public function create()
+    public function create() 
     {
         $character = $this->characterService->create();
-
+        $this->denyAccessUnlessGranted('characterCreate', $character);
         return new JsonResponse($character->toArray());
+    }
+
+    //MODIFY
+    /**
+     * @Route("/character/modify/{identifier}", 
+     *      name="character_modify",
+     *      requirements={"identifier": "^([a-z0-9]{40})$"},
+     *      methods={"PUT", "HEAD"}
+     * 
+     * )
+     */
+    public function modifiy(character $character)
+    {
+        $this->denyAccessUnlessGranted('characterModify', $character);
+
+        $character = $this->characterService->modify($character);
+
+        return new JsonResponse($character->toArray() );
+    }
+
+    //DELETE
+    /**
+     * @Route("/character/delete/{identifier}",
+     *      name="character_delete",
+     *      requirements={"identifier": "^([a-z0-9]{40})$"},
+     *      methods={"DELETE", "HEAD"}
+     * )
+     */
+    public function delete(character $character)
+    {
+        $this->denyAccessUnlessGranted('characterDelete', $character);
+        $response = $this->characterService->delete($character);
+        return new JsonResponse(array('delete' => $response));
     }
 }
