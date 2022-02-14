@@ -38,6 +38,11 @@ class Player
      */
     private $mirian;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $creation;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,6 +92,20 @@ class Player
     public function setMirian(int $mirian): self
     {
         $this->mirian = $mirian;
+
+        return $this;
+    }
+
+    public function setCreation(\DateTimeInterface $creation): self
+    {
+        $this->creation = $creation;
+
+        return $this;
+    }
+
+    public function setIdentifier(string $identifier): self
+    {
+        $this->identifier = $identifier;
 
         return $this;
     }
