@@ -34,4 +34,43 @@ class PlayerService implements PlayerServiceInterface
         $this->em->flush();
         return $player;
     }
+
+     /**
+     * @inheritdoc
+     */
+    public function getAll() {
+        $charactersFinal = array();
+        $characters = $this->characterRepository->findAll();
+        foreach($player as $player) {
+            $charactersFinal[] = $player->toArray();
+        }
+        return $charactersFinal;
+    }
+
+    /**
+    * {@inheritdoc}
+    */
+    public function modify(Player $player)
+    {
+        $player
+        ->setFirstname('Nicolas')
+        ->setLastname('Eldalote')
+        ->setEmail('test@gmail.com')
+        ->setMirian(12)
+        ;
+        $this->em->persist($player);
+        $this->em->flush();
+        return $player;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function delete(Player $player)
+    {
+        $this->em->remove($player);
+        $this->em->flush();
+
+        return true;
+    }
 }
