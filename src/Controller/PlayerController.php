@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Player;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Service\PlayerServiceInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 
 class PlayerController extends AbstractController
 {
@@ -37,7 +38,13 @@ class PlayerController extends AbstractController
     }
 
     /**
-     * @Route("/player/display/{identifier}", name="player_display", requirements={"identifier": "^([a-z0-9]{40})$"}, methods={"GET","HEAD"})
+     * 
+     * @Route("/player/display/{identifier}",    
+     * name="player_display",    
+     * requirements={"identifier": "^([a-z0-9]{40})$"},
+     * methods={"GET", "HEAD"}
+     * )
+     * @Entity("player", expr="repository.findOneByIdentifier(identifier)")
      */
     public function display(Player $player) 
     {
@@ -82,5 +89,4 @@ class PlayerController extends AbstractController
         $player = $this->playerService->delete($player);
         return new JsonResponse(array('delete' => $response));
     }
-
 }

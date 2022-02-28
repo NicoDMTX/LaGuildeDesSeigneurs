@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\PlayerRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass=PlayerRepository::class)
@@ -51,6 +53,24 @@ class Player
      * @ORM\Column(type="string", length=40)
      */
     private $identifier;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Character ::class", mappedBy="player")
+     */
+    private $characters;
+
+    public function __construct()
+    {
+        $this->characters = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection|Character[]
+     */
+    public function getCharacters() : Collection
+    {
+        return $this->characters;
+    }
 
     public function getId(): ?int
     {
@@ -145,4 +165,25 @@ class Player
     {
         return get_object_vars($this);
     }
+
+    public function addCharacter(Character $character) : self
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters[] = $character;
+            $character->setPlayer($this);
+        }
+        return $this;
+    }
+
+    public function removeCharacter(Character $character) : self
+    {
+        if ($this->characters->contains($character)) {
+            $this->characters->removeElements($character);
+            // set the owning side to null
+            if ($character->getPlayer() === $this) {
+                $character->setPlayer(null);
+            }
+        }
+        return $this;
+    } 
 }
