@@ -12,29 +12,44 @@ use Doctrine\ORM\Mapping as ORM;
 class Character
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 16,
+     * )
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=16)
+     * * @Assert\NotBlank 
+     * @Assert\Length( 
+     *      min = 3,    
+     *      max = 16,
+     * )
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 16,
+     * )
      */
     private $surname;
 
     /**
-     * @ORM\Column(type="string", length=16, nullable=true)
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 16,
+     * )
      */
     private $caste;
 
     /**
-     * @ORM\Column(type="string", length=16, nullable=true)
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 128,
+     * )
      */
     private $knowledge;
 
@@ -49,7 +64,10 @@ class Character
     private $life;
 
     /**
-     * @ORM\Column(type="string", length=128, nullable=true)
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 128,
+     * )
      */
     private $image;
 
@@ -64,9 +82,17 @@ class Character
     private $creation;
 
     /**
-     * @ORM\Column(type="string", length=40)
+     * @Assert\Length(
+     *      min= 40,
+     *      max= 40,
+     * )
      */
     private $identifier;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $modification;
 
     public function getId(): ?int
     {
@@ -194,6 +220,18 @@ class Character
     public function setIdentifier(string $identifier): self
     {
         $this->identifier = $identifier;
+
+        return $this;
+    }
+
+    public function getModification(): ?\DateTimeInterface
+    {
+        return $this->modification;
+    }
+
+    public function setModification(\DateTimeInterface $modification): self
+    {
+        $this->modification = $modification;
 
         return $this;
     }

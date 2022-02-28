@@ -3,27 +3,23 @@
 namespace App\Service;
 
 use App\Entity\Player;
-use Doctrine\ORM\EntityManagerInterface;
 
 interface PlayerServiceInterface
 {
     /**
-     * Creates the player
+     * create the player
      */
     public function create();
-
     /**
-     * getho
+     * Gets all the players
      */
     public function getAll();
-
     /**
-     * Modifies the player
-     */
+    * Modifies the player
+    */
     public function modify(Player $player);
-
     /**
-     * Delete a player
-     */
+    * Delete the player
+    */
     public function delete(Player $player);
 }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Service;
 
@@ -9,42 +9,43 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class PlayerService implements PlayerServiceInterface
 {
+    private $playerRepository;
     private $em;
-
+    
     public function __construct(EntityManagerInterface $em, PlayerRepository $playerRepository)
     {
         $this->playerRepository = $playerRepository;
         $this->em = $em;
     }
-
     /**
      * {@inheritdoc}
      */
     public function create() {
-        $player = new Player();
+        $player = new player();
         $player
-            ->setFirstname('Nicolas')
-            ->setLastname('Eldalote')
-            ->setEmail('test@gmail.com')
-            ->setMirian(12)
-            ->setCreation(new \DateTime())
-            ->setIdentifier(hash('sha1', uniqid()))
-        ;
-        $this->em->persist($player);
-        $this->em->flush();
-        return $player;
+        ->setFirstname('Jojo')
+        ->setLastname('Pegaz')
+        ->setEmail('pegazjonathan@gmail.com')
+        ->setMirian(10)
+        ->setCreation(new \DateTime())
+        ->setModification(new \DateTime())
+        ->setIdentifier(hash('sha1', uniqid()))
+    ;
+    $this->em->persist($player);
+    $this->em->flush();
+    return $player;
     }
 
-     /**
-     * @inheritdoc
+    /**
+     * {@inheritdoc}
      */
     public function getAll() {
-        $charactersFinal = array();
-        $characters = $this->characterRepository->findAll();
-        foreach($player as $player) {
-            $charactersFinal[] = $player->toArray();
+        $playersFinal = array();
+        $players = $this->playerRepository->findAll();
+        foreach ($players as $player) {
+            $playersFinal[] = $player->toArray();
         }
-        return $charactersFinal;
+        return $playersFinal;
     }
 
     /**
@@ -53,10 +54,11 @@ class PlayerService implements PlayerServiceInterface
     public function modify(Player $player)
     {
         $player
-        ->setFirstname('Nicolas')
-        ->setLastname('Eldalote')
-        ->setEmail('test@gmail.com')
-        ->setMirian(12)
+        ->setFirstname('Jerem')
+        ->setLastname('keke')
+        ->setEmail('kekejerem@gmail.com')
+        ->setMirian(5)
+        ->setModification(new \DateTime())
         ;
         $this->em->persist($player);
         $this->em->flush();
@@ -64,13 +66,13 @@ class PlayerService implements PlayerServiceInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
+    * {@inheritdoc}
+    */
     public function delete(Player $player)
     {
         $this->em->remove($player);
         $this->em->flush();
-
         return true;
     }
+
 }

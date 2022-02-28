@@ -6,7 +6,6 @@ use App\Repository\PlayerRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="players")
  * @ORM\Entity(repositoryClass=PlayerRepository::class)
  */
 class Player
@@ -19,22 +18,22 @@ class Player
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=16)
+     * @ORM\Column(type="string", length=64)
      */
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=32)
+     * @ORM\Column(type="string", length=64)
      */
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=255)
      */
     private $email;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $mirian;
 
@@ -42,6 +41,16 @@ class Player
      * @ORM\Column(type="datetime")
      */
     private $creation;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $modification;
+
+    /**
+     * @ORM\Column(type="string", length=40)
+     */
+    private $identifier;
 
     public function getId(): ?int
     {
@@ -89,11 +98,16 @@ class Player
         return $this->mirian;
     }
 
-    public function setMirian(int $mirian): self
+    public function setMirian(?int $mirian): self
     {
         $this->mirian = $mirian;
 
         return $this;
+    }
+
+    public function getCreation(): ?\DateTimeInterface
+    {
+        return $this->creation;
     }
 
     public function setCreation(\DateTimeInterface $creation): self
@@ -103,10 +117,32 @@ class Player
         return $this;
     }
 
+    public function getModification(): ?\DateTimeInterface
+    {
+        return $this->modification;
+    }
+
+    public function setModification(\DateTimeInterface $modification): self
+    {
+        $this->modification = $modification;
+
+        return $this;
+    }
+
+    public function getIdentifier(): ?string
+    {
+        return $this->identifier;
+    }
+
     public function setIdentifier(string $identifier): self
     {
         $this->identifier = $identifier;
 
         return $this;
+    }
+
+    public function toArray()
+    {
+        return get_object_vars($this);
     }
 }
