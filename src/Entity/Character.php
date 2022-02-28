@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CharacterRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="characters")
@@ -12,45 +13,48 @@ use Doctrine\ORM\Mapping as ORM;
 class Character
 {
     /**
-     * @Assert\NotBlank
-     * @Assert\Length(
-     *      min = 3,
-     *      max = 16,
-     * )
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * * @Assert\NotBlank 
-     * @Assert\Length( 
-     *      min = 3,    
-     *      max = 16,
-     * )
-     */
+    * @ORM\Column(type="string", length=16)
+    * @Assert\NotBlank
+    * @Assert\Length(
+    *   min = 3,
+    *   max = 16,
+    *)
+    */
     private $name;
 
     /**
-     * @Assert\Length(
-     *      min = 3,
-     *      max = 16,
-     * )
-     */
+    * @ORM\Column(type="string", length=64)
+    * @Assert\NotBlank
+    * @Assert\Length(
+    *   min = 3,
+    *   max = 64,
+    *)
+    */
     private $surname;
 
     /**
-     * @Assert\Length(
-     *      min = 3,
-     *      max = 16,
-     * )
-     */
+     * @ORM\Column(type="string", length=16, nullable=true)
+    * @Assert\Length(
+    *   min = 3,
+    *   max = 16,
+    *)
+    */
     private $caste;
 
     /**
-     * @Assert\Length(
-     *      min = 5,
-     *      max = 128,
-     * )
-     */
+     * @ORM\Column(type="string", length=16, nullable=true)
+    * @Assert\Length(
+    *   min = 3,
+    *   max = 16,
+    *)
+    */
     private $knowledge;
 
     /**
@@ -64,16 +68,22 @@ class Character
     private $life;
 
     /**
-     * @Assert\Length(
-     *      min = 5,
-     *      max = 128,
-     * )
-     */
+     * @ORM\Column(type="string", length=128, nullable=true)
+    * @Assert\Length(
+    *   min = 5,
+    *   max = 128,
+    *)
+    */
     private $image;
 
     /**
      * @ORM\Column(type="string", length=16)
-     */
+    * @Assert\NotBlank
+    * @Assert\Length(
+    *   min = 3,
+    *   max = 16,
+    *)
+    */
     private $kind;
 
     /**
@@ -82,17 +92,23 @@ class Character
     private $creation;
 
     /**
-     * @Assert\Length(
-     *      min= 40,
-     *      max= 40,
-     * )
-     */
+     * @ORM\Column(type="string", length=40)
+    * @Assert\Length(
+    *   min = 40,
+    *   max = 40,
+    *)
+    */
     private $identifier;
 
     /**
      * @ORM\Column(type="datetime")
      */
     private $modification;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="characters")
+     */
+    private $player;
 
     public function getId(): ?int
     {
@@ -232,6 +248,18 @@ class Character
     public function setModification(\DateTimeInterface $modification): self
     {
         $this->modification = $modification;
+
+        return $this;
+    }
+
+    public function getPlayer(): ?Player
+    {
+        return $this->player;
+    }
+
+    public function setPlayer(?Player $player): self
+    {
+        $this->player = $player;
 
         return $this;
     }
