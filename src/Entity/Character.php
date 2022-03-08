@@ -20,12 +20,11 @@ class Character
     private $id;
 
     /**
-    * @ORM\Column(type="string", length=16)
+    * @ORM\Column(type="string", length=16, name="gls_name")
     * @Assert\NotBlank
     * @Assert\Length(
     *   min = 3,
-    *   max = 16,
-    *)
+    *   max = 16)
     */
     private $name;
 

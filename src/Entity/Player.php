@@ -55,7 +55,7 @@ class Player
     private $identifier;
 
     /**
-     * @ORM\OneToMany(targetEntity="Character ::class", mappedBy="player")
+     * @ORM\OneToMany(targetEntity="Character", mappedBy="player")
      */
     private $characters;
 

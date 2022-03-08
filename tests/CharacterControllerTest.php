@@ -51,7 +51,7 @@ class CharacterControllerTest extends WebTestCase
         $this->client->request('GET', '/character');
 
         $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(200, $response->getStatusCode());.
         $this->assertTrue($response->headers->contains('Content-Type', 'application/json'), $response->headers);
     }
 
