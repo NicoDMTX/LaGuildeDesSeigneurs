@@ -35,7 +35,7 @@
                                 </td>
                             {% endif %}
                             <td>
-                                <a href="{{ path('app_character_html_show', {'id': character.id}) }}">{{ character.name }}</a>
+                                <a href="{{ path('app_character_html_index', {'id': character.id}) }}">{{ character.name }}</a>
                             </td>
                             <td>{{ character.surname }}</td>
                             <td>{{ character.caste }}</td>
@@ -45,7 +45,7 @@
                             <td>{{ character.creation ? character.creation|date('d/m/Y') : '' }}</td>
                             <td>{{ character.modification ? character.modification|date('d/m/Y') : '' }}</td>
                             <td>
-                                <a href="{{ path('app_character_html_edit', {'id': character.id}) }}">Modifier</a>
+                                {# <a href="{{ path('app_character_html_edit', {'id': character.id}) }}">Modifier</a> #}
                             </td>
                         </tr>
                     {% else %}

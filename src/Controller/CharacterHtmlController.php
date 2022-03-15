@@ -26,7 +26,7 @@ class CharacterHtmlController extends AbstractController
     }
 
     /**
-     * @Route("/", name="character_html_index", methods={"GET"})
+     * @Route("/", name="app_character_html_index", methods={"GET"})
      */
     public function index(): Response
     {
@@ -57,10 +57,11 @@ class CharacterHtmlController extends AbstractController
         ]);
     }
     /*
-     * @Route("/{id}", name="app_character_html_show", methods={"GET"})
+     * @Route("/{id}", name="app_character_html_index", methods={"GET"})
      */
     public function show(Character $character): Response
     {
+        
         return $this->render('character_html/show.html.twig', [
             'character' => $character,
         ]);
@@ -98,5 +99,15 @@ class CharacterHtmlController extends AbstractController
         }
 
         return $this->redirectToRoute('app_character_html_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/intelligence/{intelligence}", name="character_html_intelligence", methods={"GET"})
+     */
+    public function intellectIndex(int $intelligence)
+    {
+        return $this->render('character_html/index.html.twig', [
+            'characters' => $this->characterService->getIntellectAbove($intelligence),
+        ]);
     }
 }

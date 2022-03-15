@@ -104,6 +104,20 @@ class CharacterService implements CharacterServiceInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getIntellectAbove(int $number) {
+        $charactersFinal = array();
+        $characters = $this->characterRepository->findAll();
+        foreach ($characters as $character) {
+            if ($character->getIntelligence() >= $number) {
+                $charactersFinal[] = $character->toArray();
+            }
+        }
+        return $charactersFinal;
+    }
+
+    /**
     * {@inheritdoc}
     */
     public function modify(Character $character, string $data)
