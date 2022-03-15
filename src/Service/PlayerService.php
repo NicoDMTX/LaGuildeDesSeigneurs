@@ -19,6 +19,7 @@ class PlayerService implements PlayerServiceInterface
     private $em;
     private $formFactory;
     private $validator;
+    private $dispatcher;
     
     public function __construct(EntityManagerInterface $em,
     PlayerRepository $playerRepository,
@@ -29,6 +30,7 @@ class PlayerService implements PlayerServiceInterface
         $this->em = $em;
         $this->formFactory = $formFactory;
         $this->validator = $validator;
+        $this->dispatcher = $dispatcher;
     }
     /**
      * {@inheritdoc}

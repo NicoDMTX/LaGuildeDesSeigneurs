@@ -301,6 +301,9 @@
             "./.env"
         ]
     },
+    "symfony/form": {
+        "version": "v5.4.5"
+    },
     "symfony/framework-bundle": {
         "version": "5.4",
         "recipe": {
@@ -320,6 +323,12 @@
             "./src/Kernel.php"
         ]
     },
+    "symfony/http-client": {
+        "version": "v5.4.5"
+    },
+    "symfony/http-client-contracts": {
+        "version": "v2.5.0"
+    },
     "symfony/http-foundation": {
         "version": "v5.4.3"
     },
@@ -335,11 +344,32 @@
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
     },
+    "symfony/options-resolver": {
+        "version": "v5.4.3"
+    },
     "symfony/password-hasher": {
         "version": "v5.4.3"
     },
+    "symfony/phpunit-bridge": {
+        "version": "6.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.3",
+            "ref": "97cb3dc7b0f39c7cfc4b7553504c9d7b7795de96"
+        },
+        "files": [
+            "./.env.test",
+            "./bin/phpunit",
+            "./phpunit.xml.dist",
+            "./tests/bootstrap.php"
+        ]
+    },
     "symfony/polyfill-intl-grapheme": {
         "version": "v1.24.0"
+    },
+    "symfony/polyfill-intl-icu": {
+        "version": "v1.25.0"
     },
     "symfony/polyfill-intl-normalizer": {
         "version": "v1.24.0"
